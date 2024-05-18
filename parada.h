@@ -8,8 +8,8 @@ class Parada {
 public:
     Parada(int posicion);
     void llegadaPasajero();
-    int obtenerPosicion() const;
-    std::vector<Pasajero>& obtenerPasajeros();
+    int getPosicion() const;
+    std::vector<Pasajero>& pasajerosEsperando();
 
 private:
     int posicion;

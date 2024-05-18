@@ -10,35 +10,39 @@ void Bus::mover() {
     posicion = (posicion + 5) % 10000;
 }
 
-void Bus::parar(Parada& parada) {
+void Bus::detener(Parada& parada) {
     tiempo_de_espera = 5;
     bajarPasajeros(parada);
     subirPasajeros(parada);
 }
 
 void Bus::bajarPasajeros(Parada& parada) {
-    pasajeros.erase(
-        std::remove_if(pasajeros.begin(), pasajeros.end(),
-                       [&parada](Pasajero& p) { return p.obtenerDestino() == parada.obtenerPosicion(); }),
-        pasajeros.end());
+    auto i = pasajeros.begin();
+    while (i != pasajeros.end()) {
+        if (i->getDestino() == parada.getPosicion()) {
+            i = pasajeros.erase(i);
+        } else {
+            ++i;
+        }
+    }
 }
 
 void Bus::subirPasajeros(Parada& parada) {
-    while (pasajeros.size() < capacidad && !parada.obtenerPasajeros().empty()) {
-        pasajeros.push_back(parada.obtenerPasajeros().front());
-        parada.obtenerPasajeros().erase(parada.obtenerPasajeros().begin());
+    while (pasajeros.size() < capacidad && !parada.pasajerosEsperando().empty()) {
+        pasajeros.push_back(parada.pasajerosEsperando().front());
+        parada.pasajerosEsperando().erase(parada.pasajerosEsperando().begin());
         tiempo_de_espera += 2;
     }
 }
 
-int Bus::obtenerPosicion() const {
+int Bus::getPosicion() const {
     return posicion;
 }
 
-int Bus::obtenerID() const {
+int Bus::getID() const {
     return bus_id;
 }
 
-std::vector<Pasajero>& Bus::obtenerPasajeros() {
+std::vector<Pasajero>& Bus::pasajerosABordo() {
     return pasajeros;
 }

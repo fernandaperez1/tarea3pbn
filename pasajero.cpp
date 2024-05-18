@@ -2,6 +2,6 @@
 
 Pasajero::Pasajero(int destino) : destino(destino) {}
 
-int Pasajero::obtenerDestino() const {
+int Pasajero::getDestino() const {
     return destino;
 }

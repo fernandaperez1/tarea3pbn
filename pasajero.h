@@ -4,7 +4,7 @@
 class Pasajero {
 public:
     Pasajero(int destino);
-    int obtenerDestino() const;
+    int getDestino() const;
 
 private:
     int destino;

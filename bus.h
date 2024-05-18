@@ -9,10 +9,10 @@ class Bus {
 public:
     Bus(int id, int posicion);
     void mover();
-    void parar(Parada& parada);
-    int obtenerPosicion() const;
-    int obtenerID() const;
-    std::vector<Pasajero>& obtenerPasajeros();
+    void detener(Parada& parada);
+    int getPosicion() const;
+    int getID() const;
+    std::vector<Pasajero>& pasajerosABordo();
 
 private:
     int bus_id;
