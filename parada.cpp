@@ -1,5 +1,6 @@
 #include "parada.h"
 #include <cstdlib>
+#include <iostream>
 
 Parada::Parada(int posicion) : posicion(posicion) {}
 
@@ -8,9 +9,10 @@ void Parada::llegadaPasajero() {
         int destino;
         do {
             destino = rand() % 25;  
-        } while (destino == posicion);
+        } while (destino == posicion/400);
 
         pasajeros.emplace_back(destino);
+        //std::cout << "Pasajero llego a la parada " << posicion/400 << " con destino a " << destino << std::endl;
     }
 }
 

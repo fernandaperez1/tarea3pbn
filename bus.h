@@ -12,6 +12,7 @@ public:
     void detener(Parada& parada);
     int getPosicion() const;
     int getID() const;
+    int getTiempoDeEspera();
     std::vector<Pasajero>& pasajerosABordo();
 
 private:
