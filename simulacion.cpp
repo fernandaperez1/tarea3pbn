@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
-#include <numeric>
 
 Simulacion::Simulacion() : tiempo(0) {
     for (int i = 0; i < 25; i++) {
@@ -13,8 +12,17 @@ Simulacion::Simulacion() : tiempo(0) {
     }
 }
 
+bool Simulacion::busEnParada(Parada& parada, Bus& bus_actual) {
+    for (auto& bus : buses){
+        if (bus.getPosicion() == parada.getPosicion() && bus_actual.getID() != bus.getID()){
+            return true;
+        }
+    }
+    return false;
+}
+
 void Simulacion::comenzarSimulacion(int tiempo_total) {
-    for (int t = 0; t < tiempo_total; ++t) {
+    for (int t = 0; t <= tiempo_total; t++) {
         tiempo = t;
 
         if (tiempo % 3600 == 0) {
@@ -37,7 +45,7 @@ void Simulacion::comenzarSimulacion(int tiempo_total) {
 void Simulacion::estadoSimulacion(){
     std::cout << "Hora: " << tiempo / 3600 << std::endl;
     for (auto& parada : paradas) {
-        std::cout << "Parada " << parada.getPosicion()/400 << ": " << parada.pasajerosEsperando().size() << " pasajeros esperando" << std::endl;
+        std::cout << "Parada " << parada.getPosicion()/400 + 1 << ": " << parada.pasajerosEsperando().size() << " pasajeros esperando" << std::endl;
     }
     for (auto& bus : buses) {
         std::cout << "Bus " << bus.getID() << ": Posicion " << bus.getPosicion() << ", " << bus.pasajerosABordo().size() << " pasajeros a bordo" << std::endl;
@@ -56,8 +64,11 @@ void Simulacion::calcularCoeficienteDeBunching() const{
     for (size_t i = 0; i < posiciones.size(); ++i) {
         distancias.push_back((posiciones[(i + 1) % posiciones.size()] - posiciones[i] + 10000) % 10000);
     }
-
-    double S = std::accumulate(distancias.begin(), distancias.end(), 0.0) / distancias.size();
+    double suma_dist = 0.0;
+    for (auto& distancia : distancias) {
+        suma_dist += distancia;
+    }
+    double S = suma_dist / distancias.size();
     double suma_dist_cuadrado = 0.0;
     for (auto& distancia : distancias) {
         suma_dist_cuadrado += std::pow(distancia, 2);
@@ -65,5 +76,9 @@ void Simulacion::calcularCoeficienteDeBunching() const{
     double Q = suma_dist_cuadrado / distancias.size();
     double C = std::sqrt(Q - std::pow(S, 2)) / S;
 
-    std::cout << "Coeficiente de bunching: " << C << std::endl;
+    if (S == 0){
+        std::cout << "Coeficiente de bunching: " << "1.73205. Los 4 buses se encuentran en la misma posicion." << std::endl;
+    }else{
+        std::cout << "Coeficiente de bunching: " << C << std::endl;
+    }
 }

@@ -5,7 +5,7 @@
 Parada::Parada(int posicion) : posicion(posicion) {}
 
 void Parada::llegadaPasajero() {
-     if (static_cast<double>(rand()) / RAND_MAX < 10.0 / 3600.0) {
+     if (static_cast<double>(rand()) / RAND_MAX <= 10.0 / 3600.0) {
         int destino;
         do {
             destino = rand() % 25;  

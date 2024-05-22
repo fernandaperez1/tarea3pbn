@@ -10,6 +10,7 @@ public:
     Simulacion();
     void comenzarSimulacion(int tiempo_total);
     void estadoSimulacion();
+    bool busEnParada(Parada& parada, Bus& bus_actual);
 
 private:
     std::vector<Parada> paradas;

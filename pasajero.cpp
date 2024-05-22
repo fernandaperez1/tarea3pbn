@@ -1,4 +1,4 @@
-#include "Pasajero.h"
+#include "pasajero.h"
 
 Pasajero::Pasajero(int destino) : destino(destino) {}
 

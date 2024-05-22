@@ -5,16 +5,15 @@ Bus::Bus(int id, int posicion) : bus_id(id), posicion(posicion), tiempo_de_esper
 
 void Bus::mover() {
     if (tiempo_de_espera > 0) {
-        tiempo_de_espera-=1;
+        tiempo_de_espera--;
         return;
     }
     posicion += 5;
     if (posicion >= 10000) {
         posicion -= 10000;
     }
-
     if (posicion % 400 == 0) {
-        tiempo_de_espera = 5;
+        tiempo_de_espera = 10;
     }
 }
 

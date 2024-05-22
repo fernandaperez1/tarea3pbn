@@ -2,8 +2,8 @@
 #define BUS_H
 
 #include <vector>
-#include "Pasajero.h"
-#include "Parada.h"
+#include "pasajero.h"
+#include "parada.h"
 
 class Bus {
 public:
